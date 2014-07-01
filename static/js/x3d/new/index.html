@@ -1,0 +1,97 @@
+<!DOCTYPE >
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <title>Earth Demo</title>
+
+    <link rel="stylesheet" type="text/css" href="css/x3dom.css" />
+    <link rel="stylesheet" type="text/css" href="css/earthservergenericclient.css" />
+    <link rel="stylesheet" type="text/css" href="js-ext/jquery-ui/themes/base/jquery-ui.css">
+
+	<script type="text/javascript" src="js-ext/x3dom-full.js"></script>
+    <script type="text/javascript" src="js-ext/jquery-ui/jquery-1.9.1.js"></script>
+    <script type="text/javascript" src="js-ext/jquery-ui/ui/jquery-ui.js"></script>
+
+    <script type="text/javascript" src="js/EarthServerClient.js"></script>
+
+    <script type="text/javascript">
+    // basic setup:
+    EarthServerGenericClient.MainScene.setTimeLog(false);//TimeLogging: outputs time of loading and building the models to the console
+    EarthServerGenericClient.MainScene.addLightToScene(true);//Adds a light into the scene
+    // background of the render window
+    EarthServerGenericClient.MainScene.setBackground("0.9 0.9 0.9 0.8 0.8 0.8 0.7 0.7 0.7 0.6 0.6 0.6","0.9 1.5 1.57","0.6 0.6 0.8 0.5 0.5 0.7 0.4 0.4 0.6 0.3 0.3 0.5","0.9 1.5 1.57");
+
+    // create the models:
+    $(document).ready(function()
+    {
+
+        var JUB = new EarthServerGenericClient.Model_WCPSDemWCS();
+        JUB.setName("JUB");
+        JUB.setURLs("http://planetserver.jacobs-university.de:8080/petascope/wcps.php","http:///planetserver.jacobs-university.de:8080/petascope");
+        //JUB.setCoverages("FRT0000C51807L","galehrscdtm");
+        //JUB.setAreaOfInterest(137,-6,138,-5);
+        JUB.setCoverages("frt0000a906_07_if165l_trr3_1_01","galehrscdtm");
+        JUB.setAreaOfInterest(137.3377685546042,-5.287733984247882,137.57240998815232,-5.065775871432089);
+        JUB.setResolution(1000,1000);
+        JUB.setCoordinateReferenceSystem("http://www.opengis.net/def/crs/EPSG/0/27700");
+        JUB.setOffset(0,0.4,0);// model has a 40% offset in height of the cube
+        JUB.setTransparency(0);// initial transparency of the model
+
+        var JUB_query = 'for data in ( $CI ) return encode( (char)({';
+        JUB_query += 'red: (char) (255 / (max(((data.100)!=65535) * (data.100)) - min(data.100))) * ((data.100) - min(data.100));';
+        JUB_query += 'green: (char) (255 / (max(((data.200)!=65535) * (data.200)) - min(data.200))) * ((data.200) - min(data.200));';
+        JUB_query += 'blue: (char) (255 / (max(((data.300)!=65535) * (data.300)) - min(data.300))) * ((data.300) - min(data.300))';
+        JUB_query += ', "png" )';
+        JUB.setWCPSQuery(JUB_query);
+
+        // add models to the scene
+        EarthServerGenericClient.MainScene.addModel(JUB);
+
+        // create the scene: Cube has 50% height compared to width and length
+        EarthServerGenericClient.MainScene.createScene('x3dScene','theScene',1,0.5,1 );
+
+        // add annotation layers and annotation (after creating the scene)
+        EarthServerGenericClient.MainScene.addAnnotationsLayer("Layer1","JUB",50,"1 1 1",25,6,"1 1 1");
+        EarthServerGenericClient.MainScene.addAnnotationAtPosition("Layer1",137.8,-5.7,"CityName");
+        EarthServerGenericClient.MainScene.addAnnotation("Layer1",200,-30,400,"You can annotate here");
+
+        EarthServerGenericClient.MainScene.createAxisLabels("Latitude","Height","Longitude");
+    });
+
+    document.onload = function()
+    {
+        // register a progressbar (you can register your own or just delete this lines)
+        var pb = new EarthServerGenericClient.createProgressBar("progressbar");
+        EarthServerGenericClient.MainScene.setProgressCallback(pb.updateValue);
+
+        // create the UI and axis labels
+        EarthServerGenericClient.MainScene.createUI('x3domUI');
+        // starts loading and creating the models
+        // here the function starts as soon as the html page is fully loaded
+        // you can map this function to e.g. a button
+        EarthServerGenericClient.MainScene.createModels();
+    };
+    </script>
+
+</head>
+<body id="body">
+
+
+
+    <div id="x3dom">
+        <div id="progressbar"></div>
+        <X3D id="x3d" showlog="false" showstat="false">
+            <scene id="x3dScene">
+                <group id="root">
+                    <group id="theScene" DEF='theScene'></group>
+                </group>
+            </scene>
+        </X3D>
+
+        <div id='x3domUI'></div>
+    </div>
+
+
+
+</body>
+</html>

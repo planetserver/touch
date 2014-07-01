@@ -1,0 +1,99 @@
+<!DOCTYPE >
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <title>Earth Demo</title>
+
+    <link rel="stylesheet" type="text/css" href="css/x3dom.css" />
+    <link rel="stylesheet" type="text/css" href="css/earthservergenericclient.css" />
+    <link rel="stylesheet" type="text/css" href="js-ext/jquery-ui/themes/base/jquery-ui.css">
+
+    <script type="text/javascript" src="js-ext/x3dom-full.js"></script>
+    <script type="text/javascript" src="js-ext/jquery-ui/jquery-1.9.1.js"></script>
+    <script type="text/javascript" src="js-ext/jquery-ui/ui/jquery-ui.js"></script>
+
+    <script type="text/javascript" src="js/EarthServerClient.js"></script>
+
+    <script type="text/javascript">
+        // basic setup:
+        EarthServerGenericClient.MainScene.setTimeLog(false);//TimeLogging: outputs time of loading and building the models to the console
+        EarthServerGenericClient.MainScene.addLightToScene(true);//Adds a light into the scene
+        // background of the render window
+        EarthServerGenericClient.MainScene.setBackground("0.8 0.8 0.95 0.4 0.5 0.85 0.3 0.5 0.85 0.31 0.52 0.85","0.9 1.5 1.57","0.8 0.8 0.95 0.4 0.5 0.85 0.3 0.5 0.85 0.31 0.52 0.85","0.9 1.5 1.57");
+
+        // create the models:
+        $(document).ready(function()
+        {
+            var BGS = new EarthServerGenericClient.Model_WCPSDemWCPS();
+            BGS.setName("BGS 2x WCPS");
+            BGS.setURLs("http://earthserver.bgs.ac.uk/petascope");
+            BGS.setCoverages("bgs_rs", "os_dtm");
+            BGS.setAreaOfInterest(400000,500000,450000,550000);
+            BGS.setResolution(500,500);
+            BGS.setOffset(0,0.2,0);
+            BGS.setScale(1,0.3,1);
+            BGS.setCoordinateReferenceSystem("http://www.opengis.net/def/crs/EPSG/0/27700");
+            BGS.setSidePanels(true);
+
+
+            var BGS_LOW = new EarthServerGenericClient.Model_WCPSDemAlpha();
+            BGS_LOW.setName("BGS Low Resolution");
+            BGS_LOW.setURL("http://earthserver.bgs.ac.uk/petascope");
+            BGS_LOW.setCoverages("bgs_rs", "os_dtm");//can be referenced as "$CI" and "$CD" in the WCPS Query
+            BGS_LOW.setAreaOfInterest(400000,500000,450000,550000);
+            BGS_LOW.setCoordinateReferenceSystem("http://www.opengis.net/def/crs/EPSG/0/27700");
+            BGS_LOW.setScale(1.0,0.2,1.0);
+            BGS_LOW.setOffset(0,0.5,0);
+            BGS_LOW.setResolution(200,200);
+            BGS_LOW.setWCPSForChannelRED('scale(trim($CI.red, {x:$CRS($MINX:$MAXX), y:$CRS($MINY:$MAXY) }), {x:"CRS:1"(0:$RESX), y:"CRS:1"(0:$RESZ)}, {});');
+            BGS_LOW.setWCPSForChannelGREEN('scale(trim($CI.green, {x:$CRS($MINX:$MAXX), y:$CRS($MINY:$MAXY) }), {x:"CRS:1"(0:$RESX), y:"CRS:1"(0:$RESZ)}, {});');
+            BGS_LOW.setWCPSForChannelBLUE('scale(trim($CI.blue, {x:$CRS($MINX:$MAXX), y:$CRS($MINY:$MAXY) }), {x:"CRS:1"(0:$RESX), y:"CRS:1"(0:$RESZ)}, {});');
+            BGS_LOW.setWCPSForChannelALPHA('(char) (((scale(trim($CD , {x:$CRS($MINX:$MAXX), y:$CRS($MINY:$MAXY)}), {x:"CRS:1"(0:$RESX), y:"CRS:1"(0:$RESZ)}, {})) / 1349) * 255)');
+
+            // add models to the scene
+            EarthServerGenericClient.MainScene.addModel(BGS);
+            EarthServerGenericClient.MainScene.addModel(BGS_LOW);
+
+            // create the scene: Cube has 60% height compared to width and length
+            EarthServerGenericClient.MainScene.createScene('x3dScene','theScene',1,0.6,1 );
+
+            EarthServerGenericClient.MainScene.createAxisLabels("Latitude","Height","Longitude");
+        });
+
+        document.onload = function()
+        {
+            // register a progressbar (you can register your own or just delete this lines)
+            var pb = new EarthServerGenericClient.createProgressBar("progressbar");
+            EarthServerGenericClient.MainScene.setProgressCallback(pb.updateValue);
+
+            // create the UI
+            EarthServerGenericClient.MainScene.createUI('x3domUI');
+            // starts loading and creating the models
+            // here the function starts as soon as the html page is fully loaded
+            // you can map this function to e.g. a button
+            EarthServerGenericClient.MainScene.createModels();
+        };
+    </script>
+
+</head>
+<body id="body">
+
+
+
+<div id="x3dom">
+    <div id="progressbar"></div>
+    <X3D id="x3d" showlog="false" showstat="false">
+        <scene id="x3dScene">
+            <group id="root">
+                <group id="theScene" DEF='theScene'></group>
+            </group>
+        </scene>
+    </X3D>
+
+    <div id='x3domUI'></div>
+</div>
+
+
+
+</body>
+</html>

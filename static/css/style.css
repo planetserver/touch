@@ -1,0 +1,447 @@
+html, body {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100%; 
+	overflow: hidden;
+}
+
+root { 
+display: block;
+}
+
+#div_topBlock_OLD {
+	position: relative;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	/*height: 5%;*/
+	height: 45px;
+	/*min-height: 50px;*/
+	border: 0px solid #21416d;
+	float:top; 
+	display:block; 
+	background: #ffffff;
+	background-color: #9999ff;
+	z-index: 10; 
+}
+
+#div_centerBlock_OLD {
+	position: relative;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 90%;
+	border: 0px solid #21416d;
+	float:top; 
+	display:block; 
+	background: #ffffff;
+	background-color: #669966;
+	z-index: 9; 
+}
+
+#div_bottomBlock_OLD {
+	position: relative;
+	/*top: 0px;*/
+	/**/bottom: 38px;
+	/*bottom: -28px;*/
+	left: 0px;
+	width: 100%;
+	height: auto;
+	/*min-height: 50px;*/
+	border: 0px solid #21416d;
+	float:top; 
+	display:block; 
+	background: #ffffff;
+	background-color: #9999ff;
+	z-index: 10; 
+}
+
+#div_login {
+	background: #999999;
+	position: relative;
+	top: 0px;
+	left: 10px;
+	width: 150px;
+	height: 100%;
+	padding: 0px;
+	margin-left: 0px;
+	margin: 0px;
+	-moz-border-radius: 7px;
+	border: 0px solid #21416d;
+	float:left; 
+	display:block; 
+}
+
+#div_menu {
+	background: #FFFF00;
+	background: #33ff33;
+	background: #FFFFFF;
+	position: relative;
+	top: 0px;
+	left: 100px;
+	//width: 600px;
+	width: 1000;
+	height: 100%;
+	padding: 0px;
+	-moz-border-radius: 7px;
+	border: 0px solid #21416d;
+	float:left; 
+	display:block; 
+}
+
+#div_help {
+	background: #FFCCCC;
+	position: relative;
+	top: 0px;
+	right: 10px;
+	width: 200px;
+	height: 100%;
+	padding: 0px;
+	-moz-border-radius: 7px;
+	border: 0px solid #21416d;
+	float:right; 
+	display:block; 
+}
+
+#div_modes {
+	background: #FFFF66;
+	position: absolute;
+	top: 80px;
+	right: 10px;
+	width: 200px;
+	height:300px;
+	padding: 10px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+	border: 1px solid #21416d;
+}
+
+#div_console {
+	background: #000000;
+	position: absolute;
+	bottom: 100px;
+	right: 20px;
+	/*
+	position: relative;
+	left: 20px;
+	*/
+	width: 600px;
+	height: 200px;
+	padding: 10px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+	border: 2px solid #21416d;
+	border: 1px solid #ffffff;
+}
+
+#div_links {
+	background: #FF0000;
+	position: relative;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	/*height: 100%;*/
+	height: 100%;
+	margin: 0px;
+	-moz-border-radius: 7px;
+	border: 0px solid #21416d;
+}
+
+#map {
+	/*background: #3399FF;*/
+	background: #FFFFFF;
+	position: relative;
+	top: 0px;
+	left: 0px;
+	/*
+	right: 10px;
+	width: 600px;
+	height:100px;
+	*/
+	width: 100%;
+	height: 100%;
+	padding: 0px;
+	-moz-border-radius: 7px;
+	border: 0px solid #21416d;
+}
+
+.title {
+	-moz-border-radius-topleft: 5px;
+	-moz-border-radius-topright: 5px;
+	padding: 6px;
+	display: block;
+	/*background-color: #9cc6ff;*/
+	font-size: 13px;
+	margin: 0px;
+}
+
+#toc {
+	background: #FF9999;
+	position: absolute;
+	top: 250px;
+	left: 50px;
+	width: 150px;
+	height:200px;
+	padding: 10px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+	border: 2px solid #21416d;
+}
+
+
+/* Mode1 css */
+
+#div_toc11 {
+	background: #FF9999;
+	position: absolute;
+	top: 70px;
+	left: 10px;
+	width: 150px;
+	height:100px;
+	padding: 10px;
+	-moz-border-radius: 7px;
+	border: 2px solid #21416d;
+}
+
+#div_toc12 {
+	background: #FF9999;
+	position: absolute;
+	top: 200px;
+	left: 10px;
+	width: 150px;
+	height:100px;
+	padding: 10px;
+	-moz-border-radius: 7px;
+	border: 2px solid #21416d;
+}
+
+#div_toc13 {
+	background: #FF9999;
+	position: absolute;
+	top: 330px;
+	left: 10px;
+	width: 150px;
+	height:100px;
+	padding: 10px;
+	-moz-border-radius: 7px;
+	border: 2px solid #21416d;
+}
+
+/* Mode2 css */
+
+#div_toc21 {
+	background: #FF9999;
+	position: absolute;
+	top: 70px;
+	left: 10px;
+	width: 150px;
+	height:100px;
+	padding: 10px;
+	-moz-border-radius: 7px;
+	border: 2px solid #21416d;
+}
+
+#div_toc22 {
+	background: #FF9999;
+	position: absolute;
+	top: 200px;
+	left: 10px;
+	width: 150px;
+	height:100px;
+	padding: 10px;
+	-moz-border-radius: 7px;
+	border: 2px solid #21416d;
+}
+
+#div_diagrams {
+	background: #FF9999;
+	position: absolute;
+	top: 70px;
+	left: 250px;
+	width: 350px;
+	height: 300px;
+	padding: 10px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+	border: 2px solid #21416d;
+	border: 1px solid #ffffff;
+}
+
+/* Mode3 css */
+
+#div_toc31 {
+	background: #FF9999;
+	position: absolute;
+	top: 70px;
+	left: 10px;
+	width: 150px;
+	height:100px;
+	padding: 10px;
+	-moz-border-radius: 7px;
+	border: 2px solid #21416d;
+}
+
+#div_toc32 {
+	background: #FF9999;
+	position: absolute;
+	top: 200px;
+	left: 10px;
+	width: 150px;
+	height:100px;
+	padding: 10px;
+	-moz-border-radius: 7px;
+	border: 2px solid #21416d;
+}
+
+/* Windows and toolbar images */
+
+.imgToc {
+    background-image: url('/static/images/toc_16px.png') !important;
+}
+.imgDiagram {
+    background-image: url('/static/images/diagram_16px.png') !important;
+}
+.imgConsole {
+    background-image: url('/static/images/console_16px.png') !important;
+}
+.imgX3D {
+    background-image: url('/static/images/x3d_16px.png') !important;
+}
+.imgTutorial {
+    background-image: url('/static/images/tutorial_16px.png') !important;
+}
+.imgAbout {
+    background-image: url('/static/images/about_16px.png') !important;
+}
+.linkEarthserver {
+    background-image: url('/static/images/tutorial_16px.png') !important;
+}
+.imgRefresh {
+    background-image: url('/static/images/refresh_16px.png') !important;
+}
+.imgSelectAll {
+    background-image: url('/static/images/selectAll_16px.png') !important;
+}
+.imgDeselectAll {
+    background-image: url('/static/images/deselectAll_16px.png') !important;
+}
+.imgSave {
+    background-image: url('/static/images/save_16px.png') !important;
+}
+.imgLoad {
+    background-image: url('/static/images/load_16px.png') !important;
+}
+.imgSpectrum {
+    background-image: url('/static/images/spectrum_16px.png') !important;
+}
+.imgHistogram {
+    background-image: url('/static/images/histogram_16px.png') !important;
+}
+.imgCrossSection {
+    background-image: url('/static/images/crossSection_16px.png') !important;
+}
+.imgZoomIn {
+    background-image: url('/static/images/zoomIn_16px.png') !important;
+}
+.imgZoomOut {
+    background-image: url('/static/images/zoomOut_16px.png') !important;
+}
+.imgDrawRectangleDisable {
+    background-image: url('/static/images/rect_red_16x14px.png') !important;
+}
+.imgDrawRectangleEnable {
+    background-image: url('/static/images/rect_green_16x14px.png') !important;
+}
+.imgShowRegion {
+    background-image: url('/static/images/mapRegion_16px.png') !important;
+}
+
+/* Bottom status bar's icons */
+.imgStatusBarTwitter{
+    background-image: url('/static/images/twitter_16px.png') !important;
+}
+.imgStatusBarBlog{
+    background-image: url('/static/images/blog_16px.png') !important;
+}
+.imgStatusBarGithub{
+    background-image: url('/static/images/github_16px.png') !important;
+}
+.imgStatusBarEarthServer{
+    background-image: url('/static/images/earthserver_16px.png') !important;
+}
+.imgStatusBarLinkedIn{
+    background-image: url('/static/images/linkedin_16px.png') !important;
+}
+
+/* Top tool bar's icons */
+.imgToolBarButtonSelect{
+    background-image: url('/static/images/query_mode_off.png') !important;
+}
+.imgToolBarButtonSpectrum{
+    background-image: url('/static/images/spectrum_off.png') !important;
+}
+.imgToolBarButtonSpectralRatio{
+    background-image: url('/static/images/spectral_ratio_off.png') !important;
+}
+.imgToolBarButtonCrossSection{
+    background-image: url('/static/images/crosssection_off.png') !important;
+}
+.imgToolBarButtonElevationPoint{
+    background-image: url('/static/images/z_off.png') !important;
+}
+.imgToolBarButtonZoomInBox{
+    background-image: url('/static/images/drag-rectangle-off.png') !important;
+}
+.imgToolBarButtonZoomOutBox{
+    background-image: url('/static/images/zoom_out_off.png') !important;
+}
+.imgToolBarButtonDragMap{
+    background-image: url('/static/images/pan-off.png') !important;
+}
+.imgToolBarButtonFullScale{
+    background-image: url('/static/images/zoom-world-mini.png') !important;
+}
+.imgToolBarButtonViewHistoryBackward{
+    background-image: url('/static/images/view_previous_off.png') !important;
+}
+.imgToolBarButtonViewHistoryForward{
+    background-image: url('/static/images/view_next_off.png') !important;
+}
+.imgToolBarButtonMeasureDistance{
+    background-image: url('/static/images/distance_off.png') !important;
+}
+.imgToolBarButtonMeasureArea{
+    background-image: url('/static/images/area_off.png') !important;
+}
+.imgToolBarButtonEditorOle{
+	background-image: url('/static/images/editor_ole_16px.png') !important;
+}
+.imgToolBarButtonReset{
+    background-image: url('/static/images/reset_24px.png') !important;
+}
+.imgToolBarWebSearch{
+    background-image: url('/static/images/search_16px.png') !important;
+}
+.imgToolBarButtonLogin{
+    background-image: url('/static/images/lock_16px.png') !important;
+}
+
+/* Web search's thumbnails */
+.thumb-wrap  {
+	width: 162px;
+	padding: 5px;
+	text-align: center;
+	margin: 10px 10px 10px 10px;
+	background: #ccd8e7;
+	border: 1px solid #99BBE8;
+	-webkit-border-radius: .5em;
+	-moz-border-radius: .5em;
+	border-radius: .5em;
+	display: inline-block;
+}
+
+.thumb-wrap:hover {
+	background: #999999;
+	border-color: #999999;
+}

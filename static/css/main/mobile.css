@@ -1,0 +1,11 @@
+#map {
+  position: relative;
+}
+
+#menubar {
+  margin-bottom: 0px;
+}
+
+.modal-lg {
+  width: 95% !important;
+}

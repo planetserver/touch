@@ -1,0 +1,219 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+  <title>Planet Server</title>
+  <link rel="Shortcut Icon" href="/static/images/favicon.ico" type="image/x-icon" />
+  <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
+  <link href="/static/css/style.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="/static/ole/theme/geosilk/geosilk.css" type="text/css" />
+  <link rel="stylesheet" type="text/css" href="/static/css/main/default.css" />
+  <link rel="stylesheet" type="text/css" href="/static/css/main/mobile.css" />
+
+    <link href="/static/css/band_ratio.css" rel="stylesheet" type="text/css"/>
+
+  <!-- X3D Style -->
+  <link rel="stylesheet" type="text/css" href="/static/js/x3d/css/x3dom.css" />
+  <link rel="stylesheet" type="text/css" href="/static/js/x3d/css/earthservergenericclient.css" />
+  <link rel="stylesheet" type="text/css" href="/static/js/x3d/js-ext/jquery-ui/themes/base/jquery-ui.css">
+
+  <!-- Openlayers with Editor-->
+  <!--<script src="http://openlayers.org/api/2.12/OpenLayers.js"></script>-->
+  <script src="/static/js/OpenLayers/OpenLayers.js"></script>
+  <link rel='stylesheet' type='text/css' href='/static/css/OpenLayers/style.css' />
+  <!-- Load editor -->
+  <script type="text/javascript" src="/static/ole/lib/loader.js"></script>
+  <!-- Set editor language -->
+  <script type="text/javascript" src="/static/ole/lib/Editor/Lang/en.js"></script>
+
+  <!-- Proj4JS -->
+  <script type="text/javascript" src="/static/js/proj4js/proj4js-compressed.js"></script>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
+  <script src="https://raw.github.com/furf/jquery-ui-touch-punch/master/jquery.ui.touch-punch.js"></script>
+  
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+  <!-- Global variable declaration -->
+  <script src='/static/js/main/globalvar.js' type='text/javascript'></script>
+  <script src='/static/js/main/inrasdaman.js' type='text/javascript'></script>
+
+
+
+  <!--Load first-->
+  <script src='/static/js/main/main_loader.js' type='text/javascript'></script>
+  <script src='/static/js/main/function.js' type='text/javascript'></script>
+  <script src='/static/js/main/toggle.js' type='text/javascript'></script>
+
+  <!--Main Javascript-->
+  <script src='/static/js/main/gui.js' type='text/javascript'></script>
+  <script src='/static/js/main/planetmap.mobile.js' type='text/javascript'></script>
+  <script src='/static/js/main/planetmap.events.js' type='text/javascript'></script>
+  <script src='/static/js/main/spectrallibrary.js' type='text/javascript'></script>
+  <script src='/static/js/main/toc.js' type='text/javascript'></script>
+  <script src='/static/js/main/metadata.js' type='text/javascript'></script>
+  <script src='/static/js/main/summaryproducts.js' type='text/javascript'></script>
+    <!--
+    <script src='/static/js/main/loaddata.js' type='text/javascript'></script> 
+  -->
+  <script src='/static/js/main/footprints.js' type='text/javascript'></script>
+  <script type='text/javascript'>
+    jQuery(document).ready(function(){
+        //initloader(); //main_loader.js
+        // initdownloadify(); //downloadify.js
+        //initspectrallibrary(); //spectrallibrary.js   
+        initloadhs(); //loadhs.js
+        initloadregion(); //loadregion.js
+        // initconsole(); //wcpsconsole.js
+        //inittabs(); //gui.js
+        //resizecss(); //gui.js
+        resizeMap(); //gui.js
+        //initdragwindows(); //gui.js
+        initmap(); //planetmap.js
+        //inittoc(); //toc.js
+        initmapevents(); //planetmap.events.js
+        //initguievents(); //gui.js
+        //initpanels(); //planetmap.js
+        initvectors(); //planetmap.js
+        checksinglecollection(); //urlquery.js
+        checkregion(); //urlquery.js
+        checkmrdr(); //urlquery.js
+
+        initMobileUI();
+      });
+
+  </script>
+  <script src='/static/js/main/mobile.loadhs.js' type='text/javascript'></script>
+  <script src='/static/js/main/mobile.loadregion.js' type='text/javascript'></script>
+  <script src='/static/js/main/urlquery.js' type='text/javascript'></script>
+  <script src='/static/js/main/wcpsconsole.js' type='text/javascript'></script>
+  <script src='/static/js/mobile.fixes.js' type='text/javascript'></script>
+  <script src='/static/js/mobile.js' type='text/javascript'></script>
+  
+  <script src="/static/js/Operation.js"></script>
+  <script src="/static/js/BandRatioClient.js"></script>
+  <script src="/static/js/usebandratio.js"></script>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-42984080-1', 'planetserver.eu');
+    ga('send', 'pageview');
+  </script>
+</head>
+<body>
+  <nav id="menubar" class="navbar navbar-default navbar-static-top" role="navigation">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#"><img src="/static/images/PlanetServer_32px.png" height="24px"> PlanetServer Mobile</a>
+      </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <form class="navbar-form navbar-left" role="search">
+          <div class="form-group">
+            <select id="regionSelector" class="form-control">
+            </select>
+          </div>
+          <button id="loadRegionBtn" class="btn btn-primary" data-loading-text="Loading Region..." >Load Region</button>
+        </form>
+        
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#" data-toggle="modal" data-target="#tocModal">Table of Contents</a></li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Analysis Tools<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a href="javascript:void(0);" id="openBandSlider">Band Ratio Analysis</a></li>
+              <!-- <li><a href="#">Something else here</a></li>
+              <li class="divider"></li>
+              <li><a href="#">Separated link</a></li> -->
+            </ul>
+          </li>
+        </ul>
+        
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
+  <div id="div_topBlock">
+  </div>
+
+  <div id="div_centerBlock">
+    <div id="map">
+    </div>
+  </div>
+
+  <div id="hover-zoom">
+    <div class="btn-group-vertical">
+      <button id="zoom-in" type="button" class="btn btn-default btn-lg"><i class="glyphicon glyphicon-plus"></i></button>
+      <button id="zoom-out" type="button" class="btn btn-default btn-lg"><i class="glyphicon glyphicon-minus"></i></button>
+    </div>
+  </div>
+
+  <style>
+    body {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    #hover-zoom {
+      position: absolute;
+      right: 4rem;
+      bottom: 4rem;
+    }
+  </style>
+
+  <div id="div_bottomBlock">
+  </div>
+  <div id="largeModal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="myModalLabel"></h4>
+        </div>
+        <div class="modal-body">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button id="largeModalConfirm" type="button" class="btn btn-primary">Save changes</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div id="tocModal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="myModalLabel">Table of Contents</h4>
+        </div>
+        <div class="modal-body">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+        </div>
+
+      </div>
+    </div>
+  </div>
+</body>
+</html>
