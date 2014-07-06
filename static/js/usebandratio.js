@@ -1,4 +1,5 @@
 var BandRatioInstance;
+var BandToWaveLength;
 
 function createBRClient() {
    BandRatioInstance = new BandRatioClient({
@@ -24,21 +25,19 @@ function createBRClient() {
          map.addLayers([PNGimages[i]]);
 
          var query = BandRatioInstance.operationQuery;
-         addCheckbox(i, query.replace(/data\./g, 'Band'));
+         var matches = query.match(/data\.\d+/g);
+         for (var j = 0; j < matches.length; j++) {
+            var idx = parseInt(matches[j].replace('data.', ''));
+            var str = '(' + parseFloat(hsdataset.ir.metadata.wavelength[idx]) + ' µm)';
+            query = query.replace(matches[j], str);
+         }
+         addCheckbox(i, query);
       }
    });
 }
 
 var BANDRATIO_TEMPLATE = '';
 BANDRATIO_TEMPLATE += '<div id="main">';
-BANDRATIO_TEMPLATE += '   <div id="left_cont">';
-BANDRATIO_TEMPLATE += '      <div id="freqs" class="top_inline">';
-BANDRATIO_TEMPLATE += '         <p>';
-BANDRATIO_TEMPLATE += '            Choose light frequency';
-BANDRATIO_TEMPLATE += '         </p>';
-BANDRATIO_TEMPLATE += '[[BANDS]]';
-BANDRATIO_TEMPLATE += '      </div>';
-BANDRATIO_TEMPLATE += '   </div>';
 BANDRATIO_TEMPLATE += '   <div id="top_cont">';
 BANDRATIO_TEMPLATE += '      <div id="math_ops" class="top_inline">';
 BANDRATIO_TEMPLATE += '         <p>';
@@ -80,6 +79,14 @@ BANDRATIO_TEMPLATE += '         Run Query';
 BANDRATIO_TEMPLATE += '      </button>';
 BANDRATIO_TEMPLATE += '      <input type="text" id="_contrast" name="_contrast" placeholder="contrast" style="width:70px;"/>';
 BANDRATIO_TEMPLATE += '      <div id="contrast"></div>';
+BANDRATIO_TEMPLATE += '   </div>';
+BANDRATIO_TEMPLATE += '   <div id="left_cont">';
+BANDRATIO_TEMPLATE += '      <div id="freqs" class="top_inline">';
+BANDRATIO_TEMPLATE += '         <p>';
+BANDRATIO_TEMPLATE += '            Choose light frequency';
+BANDRATIO_TEMPLATE += '         </p>';
+BANDRATIO_TEMPLATE += '[[BANDS]]';
+BANDRATIO_TEMPLATE += '      </div>';
 BANDRATIO_TEMPLATE += '   </div>';
 BANDRATIO_TEMPLATE += '   <div id="drop_panel">';
 BANDRATIO_TEMPLATE += '      <div id="bin">';

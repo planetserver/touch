@@ -10,7 +10,7 @@
       float: left;
       width: 20%;
       position: relative;
-      top: 100px;
+      /*top: 100px;*/
       height: 500px;
       text-align: center;
    }
@@ -82,7 +82,7 @@
    }
    #drop_panel {
       height: 500px;
-      width: 60%;
+      width: 80%;
       background-color: white;
       /*display:inline-block;*/
       margin: 0px;
@@ -279,4 +279,8 @@
       display: inline-block;
       margin-left: 25px;
       float: right;
+   }
+
+   .ui-dialog {
+      z-index: 9999 !important;
    }
