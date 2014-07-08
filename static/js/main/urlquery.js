@@ -25,22 +25,29 @@ function checksinglecollection()
     {
     if(typeof(QueryString.productid) != "undefined")
         {
-        hsdataset.productid = QueryString.productid.toLowerCase();
-        hsdataset.collection = hsdataset.productid + "_" + pcversion + "_" + ptversion;
-        hsdataset.nodata = 65535;
+        // hsdataset.productid = QueryString.productid.toLowerCase();
+        // hsdataset.collection = hsdataset.productid + "_" + pcversion + "_" + ptversion;
+        // hsdataset.nodata = 65535;
+        hsdataset.vnir.productid = QueryString.productid.toLowerCase().replace("l_","s_");
+        hsdataset.vnir.collection = hsdataset.vnir.productid + "_" + pcversion + "_" + ptversion;
+        hsdataset.ir.productid = QueryString.productid.toLowerCase().replace("s_","l_");
+        hsdataset.ir.collection = hsdataset.ir.productid + "_" + pcversion + "_" + ptversion;
         hyperspectral_load();
+        // loadIrData();
         }
     }
 function checkregion()
     {
+      console.log('??')
     if(typeof(QueryString.region) != "undefined")
         {
-        var options = $('#chooseregion option');
+        var options = $('#regionSelector option');
         $.map(options ,function(option) {
             if(option.value == QueryString.region)
                 {
-                $("#chooseregion").val(QueryString.region);
-                $('#chooseregion').change();
+                $("#regionSelector").val(QueryString.region);
+                $('#regionSelector').change();
+                $('#loadRegionBtn').click();
                 }
         });
         }

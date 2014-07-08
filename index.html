@@ -27,9 +27,9 @@ and open the template in the editor.
   <script src="/static/js/OpenLayers/OpenLayers.js"></script>
   <link rel='stylesheet' type='text/css' href='/static/css/OpenLayers/style.css' />
   <!-- Load editor -->
-  <script type="text/javascript" src="/static/ole/lib/loader.js"></script>
+  <!-- <script type="text/javascript" src="/static/ole/lib/loader.js"></script> -->
   <!-- Set editor language -->
-  <script type="text/javascript" src="/static/ole/lib/Editor/Lang/en.js"></script>
+  <!-- <script type="text/javascript" src="/static/ole/lib/Editor/Lang/en.js"></script> -->
 
   <!-- Proj4JS -->
   <script type="text/javascript" src="/static/js/proj4js/proj4js-compressed.js"></script>
@@ -37,6 +37,7 @@ and open the template in the editor.
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
   <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
   <script src="https://raw.github.com/furf/jquery-ui-touch-punch/master/jquery.ui.touch-punch.js"></script>
+  <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
   
   <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 
@@ -81,11 +82,11 @@ and open the template in the editor.
         //initguievents(); //gui.js
         //initpanels(); //planetmap.js
         initvectors(); //planetmap.js
+
+        initMobileUI();
         checksinglecollection(); //urlquery.js
         checkregion(); //urlquery.js
         checkmrdr(); //urlquery.js
-
-        initMobileUI();
       });
 
   </script>

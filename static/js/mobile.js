@@ -18,12 +18,29 @@ function initMobileUI() {
       currentCollection = hsdataset.collection;
       $('#largeModal').modal('show');
 
+      $( "#freq_filter" ).slider({
+        range: true,
+        min: 1,
+        max: 4,
+        // orientation: 'vertical',
+        values: [ 1, 4 ],
+        step: 0.01,
+        slide: function( event, ui ) {
+          filterBands(ui.values[0], ui.values[1]);
+          $('#freq_display .min').html(ui.values[0]);
+          $('#freq_display .max').html(ui.values[1]);
+          // $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+        }
+      });
+
 
       $('#largeModalConfirm').unbind('click').html('Run Query')
         .click(function (e) {
         BandRatioInstance.queryClick();
         $('#largeModal').modal('hide');
       });
+    } else {
+      $('#largeModal').modal('show');
     }
   });
 }

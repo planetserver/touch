@@ -40,9 +40,9 @@ var BANDRATIO_TEMPLATE = '';
 BANDRATIO_TEMPLATE += '<div id="main">';
 BANDRATIO_TEMPLATE += '   <div id="top_cont">';
 BANDRATIO_TEMPLATE += '      <div id="math_ops" class="top_inline">';
-BANDRATIO_TEMPLATE += '         <p>';
+BANDRATIO_TEMPLATE += '         <h4 id="bandratio_top_headline">';
 BANDRATIO_TEMPLATE += '            Choose Math operator';
-BANDRATIO_TEMPLATE += '         </p>';
+BANDRATIO_TEMPLATE += '         </h4>';
 BANDRATIO_TEMPLATE += '         <div class="chiclet op" id="plus">';
 BANDRATIO_TEMPLATE += '            +';
 BANDRATIO_TEMPLATE += '         </div>';
@@ -71,20 +71,17 @@ BANDRATIO_TEMPLATE += '         <div class="chiclet" id="median">';
 BANDRATIO_TEMPLATE += '            <span>median()</span>';
 BANDRATIO_TEMPLATE += '         </div>';
 BANDRATIO_TEMPLATE += '      </div>';
-BANDRATIO_TEMPLATE += '        <button id="show_query">';
+BANDRATIO_TEMPLATE += '        <button id="show_query" class="btn btn-primary">';
 BANDRATIO_TEMPLATE += '         Show Query';
 BANDRATIO_TEMPLATE += '      </button>';
-BANDRATIO_TEMPLATE += '      <button id="run_query">';
-BANDRATIO_TEMPLATE += '         Run Query';
-BANDRATIO_TEMPLATE += '      </button>';
-BANDRATIO_TEMPLATE += '      <input type="text" id="_contrast" name="_contrast" placeholder="contrast" style="width:70px;"/>';
-BANDRATIO_TEMPLATE += '      <div id="contrast"></div>';
+BANDRATIO_TEMPLATE += '      <input class="hidden" id="_contrast"/>';
+BANDRATIO_TEMPLATE += '      <div id="filter_section"><span id="freq_display">Frequency Filter: <strong class="min">1</strong>&mu;m - <strong class="max">4</strong>&mu;m</span><div id="freq_filter"></div></div>';
 BANDRATIO_TEMPLATE += '   </div>';
 BANDRATIO_TEMPLATE += '   <div id="left_cont">';
 BANDRATIO_TEMPLATE += '      <div id="freqs" class="top_inline">';
-BANDRATIO_TEMPLATE += '         <p>';
+BANDRATIO_TEMPLATE += '         <h4>';
 BANDRATIO_TEMPLATE += '            Choose light frequency';
-BANDRATIO_TEMPLATE += '         </p>';
+BANDRATIO_TEMPLATE += '         </h4>';
 BANDRATIO_TEMPLATE += '[[BANDS]]';
 BANDRATIO_TEMPLATE += '      </div>';
 BANDRATIO_TEMPLATE += '   </div>';
@@ -96,7 +93,8 @@ BANDRATIO_TEMPLATE += '   </div>';
 BANDRATIO_TEMPLATE += '   <div id="display_img">';
 BANDRATIO_TEMPLATE += '      <img class="wcps_response" />';
 BANDRATIO_TEMPLATE += '   </div>';
-BANDRATIO_TEMPLATE += '   <div id="wcps_out">';
+BANDRATIO_TEMPLATE += '   <div class="clearfix"></div>';
+BANDRATIO_TEMPLATE += '   <div id="wcps_out" style="display:none;">';
 BANDRATIO_TEMPLATE += '      <p id="wcps_text"></p>';
 BANDRATIO_TEMPLATE += '   </div>';
 BANDRATIO_TEMPLATE += '</div>';
@@ -142,6 +140,41 @@ function templateBands() {
       bands += ')</div>';
    }
    return BANDRATIO_TEMPLATE.replace('[[BANDS]]', bands);
+}
+
+function filterBands(min, max) {
+   var bands = '';
+   var numBands = parseInt(hsdataset.bands);
+   // var allBands = hsdataset.ir.metadata.slice(0, numBands);
+   var bandRange = _.range(numBands);
+
+   var filteredBands = _.filter(bandRange, function (idx) {
+      var wavelength = parseFloat(hsdataset.ir.metadata.wavelength[idx]);
+      var check = (wavelength >= min && wavelength <= max);
+      console.log(check)
+      return check;
+   });
+
+   console.log(filteredBands);
+   for (var i = 0; i < filteredBands.length; i++) {
+      var idx = filteredBands[i];
+      console.log(idx)
+      bands += '<div class="chiclet ';
+      if (hsdataset.ir.metadata.bbl[idx] == 0) {
+         bands += 'badBand';
+      } else {
+         bands += 'goodBand';
+      }
+      bands += '" id="data.';
+      bands += (idx+1);
+      bands += '">Band ';
+      bands += (idx+1);
+      bands += ' (';
+      bands += parseFloat(hsdataset.ir.metadata.wavelength[idx]);
+      bands += ')</div>';
+   }
+   $('#freqs > .chiclet').remove();
+   $('#freqs').append(bands);
 }
 
 var Ext = Ext || {onReady:function(){}};

@@ -1,9 +1,10 @@
  #main {
       background-color: grey;
-      width: 90%;
-      height: 600px;
+      /*width: 90%;*/
+      height: auto !important;
       margin: 0 auto;
       padding: 0px;
+      border-bottom: 1px solid lightgrey;
    }
 
    #left_cont {
@@ -12,6 +13,8 @@
       position: relative;
       /*top: 100px;*/
       height: 500px;
+      /*height: 100%;*/
+      background: darkgrey;
       text-align: center;
    }
 
@@ -73,15 +76,19 @@
       background: #FF0000;
    }
    #top_cont {
-      height: 100px;
+      /*height: 100px;*/
       width: 100%;
       background-color: lightgrey;
+      padding-left: 1em;
+      padding-top: 0.8em;
+      padding-bottom: 1.8em;
    }
    .top_inline {
       display: inline-block;
    }
    #drop_panel {
       height: 500px;
+      /*height: 100%;*/
       width: 80%;
       background-color: white;
       /*display:inline-block;*/
@@ -106,8 +113,8 @@
       /*background-color: red;*/
       background: url(/static/images/24_empty_trash.png) no-repeat;
       position: absolute;
-      right: -20px;
-      top: 10px;
+      right: 10px;
+      top: 20px;
    }
    .chiclet .ui-selected {
       background: #F39814;
@@ -278,9 +285,48 @@
       width: 400px;
       display: inline-block;
       margin-left: 25px;
-      float: right;
+      float: right;kkkkkk
    }
 
    .ui-dialog {
       z-index: 9999 !important;
+   }
+
+   /*#bandratio_top_headline {
+      margin-left: 1em;
+   }*/
+
+   #drop_text {
+      margin-left: 1em;
+      margin-top: 0.5em;
+   }
+
+   #filter_section {
+      float: none;
+      display: block;
+      width: 230px;
+      padding: 10px;
+      margin: 5px;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      border-radius: 5px;
+      -webkit-box-shadow: rgba(0,0,0,0.2) 0px 1px 3px;
+      -moz-box-shadow: rgba(0,0,0,0.2) 0px 1px 3px;
+      box-shadow: rgba(0,0,0,0.7) 0px 1px 3px, rgba(0,0,0,0.7) 0px -1px 3px;
+   }
+
+   #freq_display {
+      width: 200px;
+      display: block;
+   }
+
+   #freq_filter {
+      float: none;
+      width: 200px;
+      margin-left: 5px;
+      margin-top: 10px;
+   }
+
+   #largeModal .modal-body {
+      padding: 0;
    }

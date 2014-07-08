@@ -104,27 +104,27 @@ function initmap() {
   map.addLayers([fake, GlobalMOLARGB, GlobalTHEMISIRday]); //, GaleHRSCWms, GaleCTXWms]);
   map.zoomTo(3);
 
-  var editor = new OpenLayers.Editor(map, {
-    activeControls: [
-      'Navigation', 
-      'SnappingSettings', 
-      'CADTools', 
-      'TransformFeature', 
-      'Separator', 
-      'DeleteFeature', 
-      'DragFeature', 
-      'SelectFeature', 
-      'Separator', 
-      'DrawHole', 
-      'ModifyFeature', 
-      'Separator'],
-    featureTypes: [
-      'regular', 
-      'polygon', 
-      'path', 
-      'point'],
-  });
-  editor.startEditMode();
+  // var editor = new OpenLayers.Editor(map, {
+  //   activeControls: [
+  //     'Navigation', 
+  //     'SnappingSettings', 
+  //     'CADTools', 
+  //     'TransformFeature', 
+  //     'Separator', 
+  //     'DeleteFeature', 
+  //     'DragFeature', 
+  //     'SelectFeature', 
+  //     'Separator', 
+  //     'DrawHole', 
+  //     'ModifyFeature', 
+  //     'Separator'],
+  //   featureTypes: [
+  //     'regular', 
+  //     'polygon', 
+  //     'path', 
+  //     'point'],
+  // });
+  // editor.startEditMode();
 
 }
 
