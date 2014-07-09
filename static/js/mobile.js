@@ -107,6 +107,8 @@ function loadRegion(e) {
 
   $('#loadRegionBtn').button('reset');
 
+  setLocationHash('region', region);
+
   e.preventDefault();
 };
 
