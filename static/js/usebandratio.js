@@ -36,6 +36,14 @@ function createBRClient() {
    });
 }
 
+function saveQuery() {
+   var query = BandRatioInstance.generateWCPS();
+
+   uploadGist(query, function(link) {
+      $('#gist_url').val(link);
+   });
+}
+
 var BANDRATIO_TEMPLATE = '';
 BANDRATIO_TEMPLATE += '<div id="main">';
 BANDRATIO_TEMPLATE += '   <div id="top_cont">';
@@ -74,6 +82,12 @@ BANDRATIO_TEMPLATE += '      </div>';
 BANDRATIO_TEMPLATE += '        <button id="show_query" class="btn btn-primary">';
 BANDRATIO_TEMPLATE += '         Show Query';
 BANDRATIO_TEMPLATE += '      </button>';
+BANDRATIO_TEMPLATE += '      <div class="input-group">'
+BANDRATIO_TEMPLATE += '         <span class="input-group-btn">'
+BANDRATIO_TEMPLATE += '           <button id="save_query" class="btn btn-primary" type="button">Save Query</button>'
+BANDRATIO_TEMPLATE += '         </span>'
+BANDRATIO_TEMPLATE += '         <input type="text" id="gist_url" class="form-control" readonly>'
+BANDRATIO_TEMPLATE += '       </div><!-- /input-group -->'
 BANDRATIO_TEMPLATE += '      <input class="hidden" id="_contrast"/>';
 BANDRATIO_TEMPLATE += '      <div id="filter_section"><span id="freq_display">Frequency Filter: <strong class="min">1</strong>&mu;m - <strong class="max">4</strong>&mu;m</span><div id="freq_filter"></div></div>';
 BANDRATIO_TEMPLATE += '   </div>';

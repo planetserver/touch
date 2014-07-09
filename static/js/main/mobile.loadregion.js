@@ -191,6 +191,7 @@ function getODEfootprints(name,westernlon,easternlon,minlat,maxlat) {
     renderIntent: "temporary",
   });
 
+  wantedFootprint = true;
   selectCtrl = new OpenLayers.Control.SelectFeature(footprints, {
     clickout: true,
     onSelect: function(feature) {

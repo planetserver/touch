@@ -984,3 +984,32 @@ function bin(value)
         }
     }
     
+function uploadGist(content, callback) {
+    var apiUrl = 'https://api.github.com/gists';
+    var gistInfo = {
+        'description': 'WCPS query created at: ' + (new Date()).toLocaleString(),
+        'public': false,
+        'files': {
+            'query.wcps': {
+                'content': content
+            }
+        }
+    };
+    $.post(apiUrl, JSON.stringify(gistInfo), function (data) {
+        var gistUrl = data.html_url;
+        // shortenUrl(gistUrl, callback);
+        callback(gistUrl);
+    });
+}
+
+function shortenUrl(url, callback) {
+    var apiUrl = 'http://git.io';
+    var properties = {
+        'url': url
+    };
+    $.post(apiUrl, JSON.stringify(properties), function (data, status, xhr) {
+        console.log('xhr', xhr);
+        console.log('foo', xhr.getResponseHeader('Location'));
+        callback('Foo');
+    });
+}

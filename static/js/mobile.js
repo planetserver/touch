@@ -33,6 +33,10 @@ function initMobileUI() {
         }
       });
 
+      $('#save_query').unbind('click').click(function(){
+        saveQuery();
+      });
+
 
       $('#largeModalConfirm').unbind('click').html('Run Query')
         .click(function (e) {
@@ -66,6 +70,8 @@ function loadRegion(e) {
 
   // WMS
   // Remove previously loaded WMS layers
+
+  console.log(WMSlayers);
   for(var i = 0; i < WMSlayers.length; i++) {
     map.removeLayer(WMSlayers[i]);
   }

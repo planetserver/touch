@@ -330,3 +330,7 @@
    #largeModal .modal-body {
       padding: 0;
    }
+
+   #gist_url {
+      width: inherit;
+   }
