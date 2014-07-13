@@ -445,3 +445,8 @@ display: block;
 	background: #999999;
 	border-color: #999999;
 }
+
+#spectraChart {
+	width: 100%;
+	height: 500px;
+}

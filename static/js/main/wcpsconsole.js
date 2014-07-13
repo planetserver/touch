@@ -491,48 +491,48 @@ function s(i)
         }
     }
 
-function spectrum_load(numbers,colors,title)
-{
-    // Switch to SPECTRUM TAB and then plot the spectrum
-    switch_tabs($('.defaulttab'));
-    //diagramplot.spectra = numbers;
-    $.jqplot.config.enablePlugins = true;
-    spectra = $.jqplot('chartPlace', numbers, {
-        title: title,
-        cursor: {
-            show: true,
-            zoom : true
-        },
-        highlighter : {
-            show : true
-        },
-        series: [{breakOnNull: true}],
-        seriesDefaults: {
-            renderer: $.jqplot.LineRenderer,
-            lineWidth: 1,
-            rendererOptions: {
-                smooth: true,
-                animation: {
-                    show: true
-                }
-            },
-            showMarker: false,
-            pointLabels: {
-                show: false
-            }
-        },
-        axes: {
-            xaxis: {
-                pad: 1.1
-            },
-            yaxis: {
-                pad: 1.1
-            }
-        },
-        seriesColors: colors
-    });
-    spectra.replot();
-}
+// function spectrum_load(numbers,colors,title)
+// {
+//     // Switch to SPECTRUM TAB and then plot the spectrum
+//     switch_tabs($('.defaulttab'));
+//     //diagramplot.spectra = numbers;
+//     $.jqplot.config.enablePlugins = true;
+//     spectra = $.jqplot('chartPlace', numbers, {
+//         title: title,
+//         cursor: {
+//             show: true,
+//             zoom : true
+//         },
+//         highlighter : {
+//             show : true
+//         },
+//         series: [{breakOnNull: true}],
+//         seriesDefaults: {
+//             renderer: $.jqplot.LineRenderer,
+//             lineWidth: 1,
+//             rendererOptions: {
+//                 smooth: true,
+//                 animation: {
+//                     show: true
+//                 }
+//             },
+//             showMarker: false,
+//             pointLabels: {
+//                 show: false
+//             }
+//         },
+//         axes: {
+//             xaxis: {
+//                 pad: 1.1
+//             },
+//             yaxis: {
+//                 pad: 1.1
+//             }
+//         },
+//         seriesColors: colors
+//     });
+//     spectra.replot();
+// }
 
 function spectrum_calc(string)
     {
