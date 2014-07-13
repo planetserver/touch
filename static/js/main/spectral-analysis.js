@@ -18,7 +18,11 @@ function initSpectralAnalysis () {
   });
 
   $('#openSpectra').click(function (e) {
-    $('#spectraModal').modal('show');
+    if (hsdataset.productid != '') {
+      $('#spectraModal').modal('show');
+    } else {
+      showAlert('You need to select a footprint');
+    }
   });
 }
 

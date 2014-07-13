@@ -62,6 +62,9 @@ function checkmrdr() {
 function setLocationHash(key, value) {
   if(key ==='productid') {
     value = value.replace('s_', 'l_');
+    $('#toggleSpectral').removeClass('disabled');
+  } else {
+    $('#toggleSpectral').addClass('disabled');
   }
   window.location.hash = key + '=' + value;
   //TODO: in the future more logic

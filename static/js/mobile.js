@@ -11,41 +11,45 @@ function initMobileUI() {
   });
 
   $('#openBandSlider').click(function(e) {
-    if (currentCollection != hsdataset.collection) {
-      $('#largeModal .modal-body').html(templateBands());
-      $('#largeModal .modal-title').html('Band Ratio Analysis');
-      createBRClient();
-      currentCollection = hsdataset.collection;
-      $('#largeModal').modal('show');
+    if (hsdataset.productid != '') {
+      if (currentCollection != hsdataset.collection) {
+        $('#largeModal .modal-body').html(templateBands());
+        $('#largeModal .modal-title').html('Band Ratio Analysis');
+        createBRClient();
+        currentCollection = hsdataset.collection;
+        $('#largeModal').modal('show');
 
-      $( "#freq_filter" ).slider({
-        range: true,
-        min: 1,
-        max: 4,
-        // orientation: 'vertical',
-        values: [ 1, 4 ],
-        step: 0.01,
-        slide: function( event, ui ) {
-          filterBands(ui.values[0], ui.values[1]);
-          $('#freq_display .min').html(ui.values[0]);
-          $('#freq_display .max').html(ui.values[1]);
-          // $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
-        }
-      });
+        $( "#freq_filter" ).slider({
+          range: true,
+          min: 1,
+          max: 4,
+          // orientation: 'vertical',
+          values: [ 1, 4 ],
+          step: 0.01,
+          slide: function( event, ui ) {
+            filterBands(ui.values[0], ui.values[1]);
+            $('#freq_display .min').html(ui.values[0]);
+            $('#freq_display .max').html(ui.values[1]);
+            // $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+          }
+        });
 
-      $('#save_query').unbind('click').click(function(){
-        saveQuery();
-      });
+        $('#save_query').unbind('click').click(function(){
+          saveQuery();
+        });
 
 
-      $('#largeModalConfirm').unbind('click').html('Run Query')
-        .click(function (e) {
-        BandRatioInstance.queryClick();
-        $('#largeModal').modal('hide');
-      });
+        $('#largeModalConfirm').unbind('click').html('Run Query')
+          .click(function (e) {
+          BandRatioInstance.queryClick();
+          $('#largeModal').modal('hide');
+        });
+      } else {
+        $('#largeModal').modal('show');
+      }
     } else {
-      $('#largeModal').modal('show');
-    }
+      showAlert('You need to select a footprint');
+    } 
   });
 }
 
