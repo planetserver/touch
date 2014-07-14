@@ -62,6 +62,8 @@
          this.callback = conf.callback;
       }
 
+      this.manualQuery = '';
+
       this.initialise();
 
    };
@@ -72,8 +74,18 @@
       this.setup_binds();
    };
 
+   BandRatioClient.prototype.setManualQuery = function (query, source) {
+      this.manualQuery = query;
+      var htmlText = '<strong>From: <a href="' + source + '" target="_blank">';
+      htmlText += source;
+      htmlText += '</a></strong><br/>';
+      htmlText += '<span id="manualQueryPlaceHolder"></span>';
+      this.dropTextEL.html(htmlText);
+      $('#manualQueryPlaceHolder').text(query);
+   };
+
    BandRatioClient.prototype.onBandDrop = function(event, a, b) {
-      console.log('something dropped');
+      // console.log('something dropped');
       this.operations.push(new Operation(b, a));
 
       // local reference
@@ -81,11 +93,12 @@
 
       // if we have stuff on the design pane we update helper text
       if (this.operations.length > 0) {
+         this.manualQuery = '';
          this.dropTextEL.text('To remove elements drag them on to bin');
       }
    };
    BandRatioClient.prototype.onFreqDrop = function(event, a, opts) {
-      console.log(opts);
+      // console.log(opts);
       var preExist = $.grep(this.operations, function(e) {
          return e.id === a;
       });
@@ -103,7 +116,7 @@
             if (old_op.length === 1) {
                op.setBin(opts.bin, old_op[0]);
             } else {
-               console.log("oh bugger this is bad!!!!!");
+               // console.log("oh bugger this is bad!!!!!");
             }
             this.operations = $.grep(this.operations, function(e) {
                return e.id !== opts.value;
@@ -131,12 +144,11 @@
 
    // the below functions contain a non-elegant error handeling solution that needs looking at in more detail
    BandRatioClient.prototype.queryClick = function() {
-
       var WCPS = this.generateWCPS();
       if (WCPS.indexOf('ERROR') != -1) {
          WCPS = WCPS.split(' - ')[1];
 
-         console.log('No freqs so showing error box');
+         // console.log('No freqs so showing error box');
          this.errorDialog(WCPS);
 
       } else {
@@ -154,7 +166,7 @@
       if (WCPS.indexOf('ERROR') != -1) {
          WCPS = WCPS.split(' - ')[1];
       }
-      console.log('khkjhkjh');
+      // console.log('khkjhkjh');
       this.errorDialog(WCPS);
 
    };
@@ -196,7 +208,7 @@
          max: 20,
          step: 1,
          slide: function(event, ui) {
-            console.log(contrast_values[ui.value]);
+            // console.log(contrast_values[ui.value]);
             $('#_contrast').val(contrast_values[ui.value]);
          }
       });
@@ -207,19 +219,27 @@
    // utility functions - maybe abstract these to different class?
 
    BandRatioClient.prototype.generateWCPS = function() {
-      console.log('generating WCPS');
+      if (this.manualQuery.length !== 0) {
+         var regExp = /\*\s\([^,]*\),\s"PNG"/g
+         var opsQuery = this.manualQuery.match(regExp);
+         opsQuery = (opsQuery.length > 0) ? opsQuery[0] : '';
+         opsQuery = opsQuery.replace('* ', '').replace(', "PNG"', '');
+         this.operationQuery = opsQuery;
+         return this.manualQuery;
+      }
+
       var query = 'for data in ('+hsdataset.collection+') ';
       var contrast = $('#_contrast').val();
       if (contrast.length === 0) {
          contrast = '255';
       }
       if (this.operations.length === 1) {
-         console.log('inside ops');
+         // console.log('inside ops');
          var freqs = this.removeDupes(this.operations[0].getFreqs());
          if (freqs.length === 0) {
             return "ERROR - No Frequencies used in algorithm.";
          }
-         // console.log('after remove dupes');
+         console.log('after remove dupes');
          // var temp_freqs = [];
          // for (var i = 0, len = freqs.length; i < len; i++) {
          //    temp_freqs.push(freqs[i] + ' in (CCI_' + freqs[i] + '_monthly)');
@@ -232,25 +252,25 @@
          query += this.operationQuery;
          query += ', "PNG", "NODATA=0")';
       } else {
-         console.log('Unable to create WCPS as no elements have been created');
+         // console.log('Unable to create WCPS as no elements have been created');
       }
       return query;
    };
 
    // BandRatioClient.prototype.generateWCPS = function() {
-   //    console.log('generating WCPS');
+      console.log('generating WCPS');
    //    var query = 'for ';
    //    var contrast = $('#_contrast').val();
    //    if (contrast.length === 0) {
    //       contrast = '255';
    //    }
    //    if (this.operations.length === 1) {
-   //       console.log('inside ops');
+         console.log('inside ops');
    //       var freqs = this.removeDupes(this.operations[0].getFreqs());
    //       if (freqs.length === 0) {
    //          return "ERROR - No Frequencies used in algorithm.";
    //       }
-   //       console.log('after remove dupes');
+         console.log('after remove dupes');
    //       var temp_freqs = [];
    //       for (var i = 0, len = freqs.length; i < len; i++) {
    //          temp_freqs.push(freqs[i] + ' in (CCI_' + freqs[i] + '_monthly)');
@@ -260,7 +280,7 @@
    //       query += this.operations[0].rootRender();
    //       query += '* ' + contrast + ', "PNG", "NODATA=0")';
    //    } else {
-   //       console.log('Unable to create WCPS as no elements have been created');
+         console.log('Unable to create WCPS as no elements have been created');
    //    }
    //    return query;
    // };
@@ -277,7 +297,7 @@
 
 
    BandRatioClient.prototype.testFreq = function(freq) {
-      console.log('testing ' + freq + ' against available freqs');
+      // console.log('testing ' + freq + ' against available freqs');
       if (this.allowedFreqs.indexOf(freq) === -1) {
          return false;
       }
@@ -293,7 +313,7 @@
       var max_query = this.max_query.replace(/FREQ/g, freq);
       min_query = min_query.replace('COLLECTION', hsdataset.collection);
       max_query = max_query.replace('COLLECTION', hsdataset.collection);
-      console.log('####', elem);
+      // console.log('####', elem);
       $.when($.ajax({
          type: 'POST',
          context: this,
@@ -312,8 +332,8 @@
          'elem': elem,
          'this': this
       }).done(function(min, max, context) {
-         console.log('woop defered worked');
-         console.log(context.elem);
+         // console.log('woop defered worked');
+         // console.log(context.elem);
          context.this.addMedian(min[0], max[0], context.elem);
 
 
@@ -330,10 +350,10 @@
       max = max.substring(0, max.length - 1);
 
       var median = +min + ((max - min) / 2);
-      // //console.log('adding ' + resp + ' to ' + that);
+      //console.log('adding ' + resp + ' to ' + that);
 
-      console.log(min, max, elem, median);
-      console.log($($(elem).parent()).attr('id'));
+      // console.log(min, max, elem, median);
+      // console.log($($(elem).parent()).attr('id'));
 
       $(elem).text(median.toFixed(6));
       $(this.eventObj).trigger('band_ratio.freq_dropped', [$($(elem).parent()).attr('id'), {
@@ -354,7 +374,7 @@
       if (this.testFreq(freq)) {
          query = this.avg_query.replace(/FREQ/g, freq);
          query = query.replace('COLLECTION', hsdataset.collection);
-         console.log(query);
+         // console.log(query);
          $.ajax({
             url: this.petascopeURL_POST,
             type: 'POST',
@@ -379,9 +399,9 @@
 
       resp = resp.substring(1);
       resp = resp.substring(0, resp.length - 1);
-      //console.log('adding ' + resp + ' to ' + that);
+      console.log('adding ' + resp + ' to ' + that);
 
-      console.log(resp);
+      // console.log(resp);
       $(elem).text((+resp).toFixed(6));
       $(this.eventObj).trigger('band_ratio.freq_dropped', [$($(elem).parent()).attr('id'), {
          'bin': $(elem).data('bin'),
@@ -429,9 +449,9 @@
 
       resp = resp.substring(1);
       resp = resp.substring(0, resp.length - 1);
-      //console.log('adding ' + resp + ' to ' + that);
+      console.log('adding ' + resp + ' to ' + that);
 
-      console.log(resp);
+      // console.log(resp);
       $(elem).text((+resp).toFixed(6));
       $(this.eventObj).trigger('band_ratio.freq_dropped', [$($(elem).parent()).attr('id'), {
          'bin': $(elem).data('bin'),
@@ -464,7 +484,7 @@
          filter: ':not(h4)',
          stop: function(ev, ui) {
             $('.ui-selected', this).each(function() {
-               console.log(this);
+               // console.log(this);
             });
          }
       });
@@ -483,7 +503,7 @@
             this.addOp(ui, this.dropPanel, 'multiply');
             break;
          default:
-            console.log('something other than an Op was dropped so ignoring it');
+            // console.log('something other than an Op was dropped so ignoring it');
             break;
 
       }
@@ -516,22 +536,22 @@
       }).data('index', '2');
       //$.data(elem, '_tyspe','plus');
       elem.appendTo($(drop));
-      console.log('triggering dropped');
+      // console.log('triggering dropped');
       $(this.eventObj).trigger('band_ratio.dropped', [elem.attr('id'), operation]);
 
    };
 
    BandRatioClient.prototype.binDrop = function(ev, ui) {
-      console.log('dropped in bin');
+      // console.log('dropped in bin');
       var uiHelper = $(ui.helper);
       var uiHelperCtx = $(ui.helper.context);
       var evTarget = $(ev.target);
       var uiDraggableCtx = $(ui.draggable.context);
       var newClone,
          freq;
-      console.log(uiHelper);
+      // console.log(uiHelper);
       if (uiHelper.hasClass('holder')) {
-         console.log('inside holder if');
+         // console.log('inside holder if');
          //this block is for dropping boxes on boxes
          uiHelper.remove();
          var op_drop = uiHelper.clone(true).removeClass('ui-draggable-dragging')
@@ -638,7 +658,7 @@
             .data('freq', uiDraggableCtx.attr('id'));
          $(evTarget.parent()).data('box_' + evTarget.data('index'), evTarget.data('freq'));
          this.getAvg(freq, evTarget, uiHelper);
-         console.log('dropped avg() for freq', freq);
+         // console.log('dropped avg() for freq', freq);
 
 
       } else if (uiHelperCtx.attr('id') === 'median') {
@@ -657,7 +677,7 @@
             .data('freq', uiDraggableCtx.attr('id'));
          $(evTarget.parent()).data('box_' + evTarget.data('index'), evTarget.data('freq'));
          this.getMedian(freq, evTarget);
-         console.log('dropped avg() for freq', freq);
+         // console.log('dropped avg() for freq', freq);
 
 
       } else {
@@ -685,13 +705,13 @@
    };
 
    BandRatioClient.prototype.logPos = function(newClone) {
-      console.log($(newClone).offset());
-      console.log($(newClone).position());
+      // console.log($(newClone).offset());
+      // console.log($(newClone).position());
    };
 
    BandRatioClient.prototype.getOverview = function() {
       $.each($('#drop_panel').children(), function(e) {
-         console.log($(this).data());
+         // console.log($(this).data());
       });
    };
 

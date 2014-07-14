@@ -24,7 +24,9 @@ function createBRClient() {
             );
          map.addLayers([PNGimages[i]]);
 
-         var query = BandRatioInstance.operationQuery;
+         var query;
+         console.log(BandRatioInstance.operationQuery);
+         query = BandRatioInstance.operationQuery;
          var matches = query.match(/data\.\d+/g);
          for (var j = 0; j < matches.length; j++) {
             var idx = parseInt(matches[j].replace('data.', ''));
@@ -41,6 +43,25 @@ function saveQuery() {
 
    uploadGist(query, function(link) {
       $('#gist_url').val(link);
+   });
+}
+
+function loadQuery() {
+   var url = $('#load_gist_url').val();
+   loadGist(url, function (content) {
+      BandRatioInstance.setManualQuery(content, url);
+      var regExp = /for data in \(.*\) return/;
+      var newCollection = content.match(regExp);
+      newCollection = (newCollection.length > 0) ? newCollection[0] : '';
+      newCollection = newCollection.replace('for data in (', '').replace(') return', '');
+      if (newCollection !== hsdataset.collection) {
+         var newProductId = newCollection.replace(new RegExp("_"+pcversion+"_"+ptversion+"$"), '');
+         hsdataset.vnir.productid = newProductId.toLowerCase().replace("l_","s_");
+         hsdataset.vnir.collection = hsdataset.vnir.productid + "_" + pcversion + "_" + ptversion;
+         hsdataset.ir.productid = newProductId.toLowerCase().replace("s_","l_");
+         hsdataset.ir.collection = hsdataset.ir.productid + "_" + pcversion + "_" + ptversion;
+         hyperspectral_load();
+      }
    });
 }
 
@@ -87,6 +108,12 @@ BANDRATIO_TEMPLATE += '         <span class="input-group-btn">'
 BANDRATIO_TEMPLATE += '           <button id="save_query" class="btn btn-primary" type="button">Save Query</button>'
 BANDRATIO_TEMPLATE += '         </span>'
 BANDRATIO_TEMPLATE += '         <input type="text" id="gist_url" class="form-control" readonly>'
+BANDRATIO_TEMPLATE += '       </div><!-- /input-group -->'
+BANDRATIO_TEMPLATE += '      <div class="input-group">'
+BANDRATIO_TEMPLATE += '         <span class="input-group-btn">'
+BANDRATIO_TEMPLATE += '           <button id="load_query" class="btn btn-primary" type="button">Load Query</button>'
+BANDRATIO_TEMPLATE += '         </span>'
+BANDRATIO_TEMPLATE += '         <input type="text" id="load_gist_url" class="form-control">'
 BANDRATIO_TEMPLATE += '       </div><!-- /input-group -->'
 BANDRATIO_TEMPLATE += '      <input class="hidden" id="_contrast"/>';
 BANDRATIO_TEMPLATE += '      <div id="filter_section"><span id="freq_display">Frequency Filter: <strong class="min">1</strong>&mu;m - <strong class="max">4</strong>&mu;m</span><div id="freq_filter"></div></div>';

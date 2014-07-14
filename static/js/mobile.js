@@ -38,6 +38,10 @@ function initMobileUI() {
           saveQuery();
         });
 
+        $('#load_query').unbind('click').click(function(){
+          loadQuery();
+        });
+
 
         $('#largeModalConfirm').unbind('click').html('Run Query')
           .click(function (e) {

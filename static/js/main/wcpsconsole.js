@@ -1002,6 +1002,19 @@ function uploadGist(content, callback) {
     });
 }
 
+function loadGist(url, callback) {
+    var apiUrl = 'https://api.github.com/gists';
+    var regExp = /https:\/\/gist\.github\.com.*\//g;
+    var requestUrl = apiUrl + '/' + url.replace(regExp, '');
+    $.get(requestUrl, function (data) {
+        if (data && data.files && data.files['query.wcps']) {
+            callback(data.files['query.wcps'].content);
+        } else {
+            callback('');
+        }
+    });
+}
+
 function shortenUrl(url, callback) {
     var apiUrl = 'http://git.io';
     var properties = {
