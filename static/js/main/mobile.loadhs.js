@@ -1,4 +1,5 @@
 function hyperspectral_load() {
+  // WaitingDialog.showPleaseWait();
   initmetadata(); //metadata.js
 
   vector_layer.setZIndex(1200);
@@ -23,6 +24,7 @@ function hyperspectral_load() {
 
   inithsmapevents(); //planetmap.events.js
   initsp(); //summaryproducts.js
+  WaitingDialog.hidePleaseWait();
 }
 
 function initloadhs() {
@@ -143,4 +145,5 @@ function loadImage() {
   map.addLayers([PNGimages[i]]);
   map.setCenter(new OpenLayers.LonLat((hsdataset.xmin + hsdataset.xmax) / 2, (hsdataset.ymin + hsdataset.ymax) / 2), 12);
   setLocationHash('productid', hsdataset.productid);
+  WaitingDialog.hidePleaseWait();
 }

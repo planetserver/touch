@@ -195,6 +195,7 @@ function getODEfootprints(name,westernlon,easternlon,minlat,maxlat) {
   selectCtrl = new OpenLayers.Control.SelectFeature(footprints, {
     clickout: true,
     onSelect: function(feature) {
+      WaitingDialog.showPleaseWait();
       if (wantedFootprint) {
         // New IR object
         hsdataset.ir.productid = feature.data["pdsid"];

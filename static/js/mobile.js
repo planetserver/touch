@@ -3,10 +3,10 @@
 function initMobileUI() {
   populateRegionSelector();
   $('#loadRegionBtn').click(function(e) {
-    $('#loadRegionBtn').button('loading');
-    setTimeout(function(){
+    // $('#loadRegionBtn').button('loading');
+    // setTimeout(function(){
       loadRegion(e);
-    }, 50);    
+    // }, 50);    
     e.preventDefault();
   });
 
@@ -70,6 +70,7 @@ function populateRegionSelector() {
 /*
 */
 function loadRegion(e) {
+  WaitingDialog.showPleaseWait();
   var region = $('#regionSelector').val();
 
   //Load region data
@@ -116,6 +117,7 @@ function loadRegion(e) {
   $('#loadRegionBtn').button('reset');
 
   setLocationHash('region', region);
+  WaitingDialog.hidePleaseWait();
 
   e.preventDefault();
 };
