@@ -1,5 +1,9 @@
 function hyperspectral_load() {
   // WaitingDialog.showPleaseWait();
+  if (spectralHandler) {
+    spectralHandler.deactivate();
+    $('#toggleSpectral').removeClass('active');
+  }
   initmetadata(); //metadata.js
 
   vector_layer.setZIndex(1200);

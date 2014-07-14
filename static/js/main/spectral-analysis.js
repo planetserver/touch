@@ -1,5 +1,7 @@
+var spectralHandler;
+
 function initSpectralAnalysis () {
-  var spectralHandler = new OpenLayers.Handler.Click({'map': map}, {'click': handleSpectralClick})
+  spectralHandler = new OpenLayers.Handler.Click({'map': map}, {'click': handleSpectralClick})
   var $toggle = $('#toggleSpectral');
   $toggle.click(function(e) {
     if ($toggle.hasClass('active')) {

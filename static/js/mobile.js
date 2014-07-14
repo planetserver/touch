@@ -70,6 +70,10 @@ function populateRegionSelector() {
 /*
 */
 function loadRegion(e) {
+  if (spectralHandler) {
+    spectralHandler.deactivate();
+    $('#toggleSpectral').removeClass('active');
+  }
   WaitingDialog.showPleaseWait();
   var region = $('#regionSelector').val();
 
