@@ -11,7 +11,7 @@ function initMobileUI() {
   });
 
   $('#openBandSlider').click(function(e) {
-    if (hsdataset.productid != '') {
+    if (hsdataset.collection != '') {
       if (currentCollection != hsdataset.collection) {
         $('#largeModal .modal-body').html(templateBands());
         $('#largeModal .modal-title').html('Band Ratio Analysis');
