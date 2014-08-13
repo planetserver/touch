@@ -59,13 +59,31 @@ function checkmrdr() {
   }
 }
 
-function setLocationHash(key, value) {
-  if(key ==='productid') {
-    value = value.replace('s_', 'l_');
-    $('#toggleSpectral').removeClass('disabled');
-  } else {
-    $('#toggleSpectral').addClass('disabled');
+function checklonlat() 
+    {
+    if (typeof(QueryString.lat) != "undefined" && typeof(QueryString.lon) != "undefined") 
+        {
+            if (typeof(QueryString.zoomlevel) != "undefined") 
+            {
+                map.panTo(new OpenLayers.LonLat(QueryString.lon, QueryString.lat));
+                map.zoomTo(QueryString.zoomlevel);
+
+            } else 
+            {
+                map.panTo(new OpenLayers.LonLat(QueryString.lon, QueryString.lat));
+            }
+        }
+    }
+
+function setLocationHash() {
+  var hashvalue = "";
+  for (key in hashKeys) {
+    var value = hashKeys[key];
+    if (value != "") {
+      hashvalue += (hashvalue != "") ? "&" : "";
+      hashvalue += key + "=" + hashKeys[key];
+    }
   }
-  window.location.hash = key + '=' + value;
+  window.location.hash = hashvalue;
   //TODO: in the future more logic
 }

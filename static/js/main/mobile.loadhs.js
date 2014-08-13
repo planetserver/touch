@@ -148,6 +148,7 @@ function loadImage() {
   // Add image to map 
   map.addLayers([PNGimages[i]]);
   map.setCenter(new OpenLayers.LonLat((hsdataset.xmin + hsdataset.xmax) / 2, (hsdataset.ymin + hsdataset.ymax) / 2), 12);
-  setLocationHash('productid', hsdataset.productid);
+  hashKeys['productid'] = hsdataset.productid;
+  setLocationHash();
   WaitingDialog.hidePleaseWait();
 }

@@ -488,3 +488,9 @@ var usedCrism = 0;	// 0 = IR; 1 = VNIR
 var footprints;
 var curiosity;
 
+var hashKeys = new Object();
+hashKeys["region"] = "";
+hashKeys["productid"] = "";
+hashKeys["lat"] = "";
+hashKeys["lon"] = "";
+hashKeys["zoomlevel"] = "";

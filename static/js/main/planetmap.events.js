@@ -92,7 +92,50 @@ function toggleQueryMode4() {
 	}
 }
 
+function setLocationHashFromPixel(pixel)
+    {
+        lonlat = map.getLonLatFromPixel(pixel);
+        hashKeys['lat'] = lonlat.lat;
+        hashKeys['lon'] = lonlat.lon;
+        hashKeys['region'] =  getRegion(lonlat);
+        hashKeys['productid'] = getProduct(lonlat);
+    }
+
+function isZoomEvent() 
+    {
+    return (map.getZoom() != hashKeys['zoomlevel']);
+    }
 function initmapevents() {
+
+    map.events.register("mousemove", map, function(e)
+        {
+        setLocationHashFromPixel(new OpenLayers.Pixel(e.xy.x,e.xy.y));
+        setLocationHash();
+        });
+
+    map.events.register("mouseout", map, function(e)
+        {
+            location.hash = ""
+        });
+
+    map.events.register("move", map, function(e)
+        {
+        // move occurs on zoom, pan and drag. Filter zoom.
+        if (isZoomEvent()) 
+            {
+            hashKeys['zoomlevel'] = map.getZoom(); 
+            var productid = hashKeys['productid'];
+            if (productid == "")
+                {
+                setLocationHash();
+                }
+            else if (!iscodezoomevent)
+                {
+                loadmrdr(productid);    
+                }
+            }
+        });
+
 	map.addControl(zoomBoxIn);
 	map.addControl(zoomBoxOut);
     zoomBox = new OpenLayers.Control.ZoomBox({ title: "Zoom in box" });

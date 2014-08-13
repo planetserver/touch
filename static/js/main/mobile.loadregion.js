@@ -3,6 +3,7 @@ var highlightCtrl;
 var selectCtrl;
 var curiosity;
 var wantedFootprint = true;
+var iscodezoomevent = false;
 
 function dtm_load() {
 
@@ -36,7 +37,9 @@ function loadmrdr(productid) {
   map.addLayers([temp]);
   WMSlayers[0] = temp;
   map.addLayers([footprints]);
+  iscodezoomevent = true;
   map.zoomToExtent(footprints.getDataExtent());
+  iscodezoomevent = false;
 }
   
 function initloadregion() {

@@ -22,6 +22,51 @@ OpenLayers.Feature.Vector.style['default']['strokeWidth'] = '2';
 var maxextent = new OpenLayers.Bounds(-180,-90,180,90);
 //
 
+function liesInArea(jsonobj, lonlat) 
+    {
+        if (lonlat.lon >= jsonobj['westernlon'])
+            if (lonlat.lon <= jsonobj['easternlon'])
+                if (lonlat.lat >= jsonobj['minlat'])
+                    if (lonlat.lat <= jsonobj['maxlat']) 
+                        return true;
+        return false;
+
+    }
+
+function liesInRegion(region, lonlat) 
+    {
+        return liesInArea(regions[region], lonlat);
+    }
+
+function liesInProduct(productid, lonlat) 
+{
+    return liesInArea(mrdr[productid], lonlat);
+}
+
+function getRegion(lonlat) 
+    {
+        for (region in regions)
+        {
+            if (liesInRegion(region, lonlat)) 
+            {
+                return region;
+            }
+        }
+        return "";
+    }
+
+function getProduct(lonlat) 
+    {
+        for (productid in mrdr) 
+        {
+            if (liesInProduct(productid, lonlat))
+            {
+                return productid;
+            }
+        }
+        return "";
+    }
+
 function initmap() {
   map = new OpenLayers.Map( 'map' , {
     controls: [
