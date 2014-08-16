@@ -16,6 +16,8 @@ var queryEventHandler2; // Spectral ratio
 var queryEventHandler3; // Cross section
 var queryEventHandler4; // Elevation Point
 
+var loadedProduct = false;
+
 // execute maximum zoom
 function mapZoomMaximum() {
 	map.zoomToExtent(maxextent); // maxextent initialized in planetmap.js
@@ -115,23 +117,24 @@ function initmapevents() {
 
     map.events.register("mouseout", map, function(e)
         {
-            location.hash = ""
+            location.hash = "";
         });
 
     map.events.register("move", map, function(e)
         {
-        // move occurs on zoom, pan and drag. Filter zoom.
-        if (isZoomEvent()) 
+        if (isZoomEvent()) // zoom 
             {
             hashKeys['zoomlevel'] = map.getZoom(); 
             var productid = hashKeys['productid'];
             if (productid == "")
                 {
+                loadedProduct = false;
                 setLocationHash();
                 }
-            else if (!iscodezoomevent)
+            else if (!iscodezoomevent && !loadedProduct)
                 {
                 loadmrdr(productid);    
+                loadedProduct = true;
                 }
             }
         });

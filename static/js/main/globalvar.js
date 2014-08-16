@@ -491,6 +491,6 @@ var curiosity;
 var hashKeys = new Object();
 hashKeys["region"] = "";
 hashKeys["productid"] = "";
-hashKeys["lon"] = "";
 hashKeys["lat"] = "";
-hashKeys["zoomlevel"] = "";
+hashKeys["lon"] = "";
+hashKeys["zoomlevel"] = 3;

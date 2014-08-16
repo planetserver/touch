@@ -62,17 +62,12 @@ function checkmrdr() {
 function checklonlat() 
     {
     if (typeof(QueryString.lat) != "undefined" && typeof(QueryString.lon) != "undefined") 
-        {
-            if (typeof(QueryString.zoomlevel) != "undefined") 
-            {
-                map.panTo(new OpenLayers.LonLat(QueryString.lon, QueryString.lat));
-                map.zoomTo(QueryString.zoomlevel);
-
-            } else 
-            {
-                map.panTo(new OpenLayers.LonLat(QueryString.lon, QueryString.lat));
-            }
-        }
+      {
+      hashKeys['lon'] = QueryString.lon;
+      hashKeys['lat'] = QueryString.lat;
+      var zoom = typeof(QueryString.zoomlevel) != "undefined" ? QueryString.zoomlevel : 3;
+      map.setCenter(new OpenLayers.LonLat(QueryString.lon, QueryString.lat), zoom, true, true);
+      }
     }
 
 function setLocationHash() {
