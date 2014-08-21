@@ -6,7 +6,7 @@ function initmetadata()
         //hsdataset.ir.collection = hsdataset.ir.productid + "_" + pcversion + "_" + ptversion;
 
 	//Set hsdataset for IR
-	var irmetadata = getBinary('/static/js/metadata/' + hsdataset.ir.collection + '.js');
+	var irmetadata = getBinary('/static/js/regionsdata/metadata/' + hsdataset.ir.collection + '.js');
 	hsdataset.ir.metadata = JSON.parse(irmetadata);
 	hsdataset.ir.xmin = hsdataset.ir.metadata.xmin;
 	hsdataset.ir.xmax = hsdataset.ir.metadata.xmax;
@@ -32,7 +32,7 @@ function initmetadata()
         //hsdataset.vnir.collection = hsdataset.vnir.productid + "_" + pcversion + "_" + ptversion;
 
 	//Set hsdataset for VNIR
-	var vnirmetadata = getBinary('/static/js/metadata/' + hsdataset.vnir.collection + '.js');
+	var vnirmetadata = getBinary('/static/js/regionsdata/metadata/' + hsdataset.vnir.collection + '.js');
 	hsdataset.vnir.metadata = JSON.parse(vnirmetadata);
 	hsdataset.vnir.xmin = hsdataset.vnir.metadata.xmin;
 	hsdataset.vnir.xmax = hsdataset.vnir.metadata.xmax;

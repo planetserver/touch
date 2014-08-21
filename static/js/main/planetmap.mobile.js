@@ -144,8 +144,6 @@ function initmap() {
     { map: "themisirday.map", layers: 'themisirday', projection: 'PS:2?0', transparent: 'true'},
     {isBaseLayer: false, opacity: 0.5, transitionEffect: 'resize', wrapDateLine: true}
   );
-
- 
   map.addLayers([fake, GlobalMOLARGB, GlobalTHEMISIRday]); //, GaleHRSCWms, GaleCTXWms]);
   map.zoomTo(3);
 
